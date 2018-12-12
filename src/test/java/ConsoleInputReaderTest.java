@@ -3,12 +3,10 @@ import com.tw.bc.InputReader;
 import com.tw.bc.TrustChoice;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
 
 public class ConsoleInputReaderTest {
 

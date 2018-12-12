@@ -9,8 +9,8 @@ import org.mockito.Mockito;
 public class ScoreManagerTest {
     @Test
     public void shouldUpdateScores() {
-        Player playerOne = new Player(new ConsoleInputReader());
-        Player playerTwo = new Player(new ConsoleInputReader());
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
         ScoreManager scoreManager = new ScoreManager();
         scoreManager.updateScores(playerOne, TrustChoice.COOPERATE, playerTwo, TrustChoice.COOPERATE);
         Assert.assertEquals(2, playerOne.getScore());

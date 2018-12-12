@@ -10,9 +10,8 @@ public class EvolutionOfTrustGameTest {
 
     @Test
     public void shouldInitializeGame() {
-        InputReader inputReader = Mockito.mock(ConsoleInputReader.class);
-        Player playerOne = new Player(inputReader);
-        Player playerTwo = new Player(inputReader);
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
         Assert.assertEquals(0, playerOne.getScore());
@@ -24,14 +23,15 @@ public class EvolutionOfTrustGameTest {
         Player playerOne = Mockito.mock(Player.class);
         Player playerTwo = Mockito.mock(Player.class);
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
-        when(playerOne.play()).thenReturn(TrustChoice.COOPERATE);
-        when(playerTwo.play()).thenReturn(TrustChoice.CHEAT);
+        InputReader inputReader = new ConsoleInputReader();
+        when(playerOne.play(inputReader)).thenReturn(TrustChoice.COOPERATE);
+        when(playerTwo.play(inputReader)).thenReturn(TrustChoice.CHEAT);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
-        evolutionOfTrust.start();
+        evolutionOfTrust.start(inputReader, inputReader);
         Assert.assertEquals(0, playerOne.getScore());
         Assert.assertEquals(0, playerTwo.getScore());
-        verify(playerOne, times(NO_OF_ROUNDS)).play();
-        verify(playerTwo, times(NO_OF_ROUNDS)).play();
+        verify(playerOne, times(NO_OF_ROUNDS)).play(inputReader);
+        verify(playerTwo, times(NO_OF_ROUNDS)).play(inputReader);
     }
 
     @Test
@@ -39,15 +39,16 @@ public class EvolutionOfTrustGameTest {
         Player playerOne = Mockito.mock(Player.class);
         Player playerTwo = Mockito.mock(Player.class);
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
+        InputReader inputReader = new ConsoleInputReader();
 
-        when(playerOne.play()).thenReturn(TrustChoice.COOPERATE);
-        when(playerTwo.play()).thenReturn(TrustChoice.CHEAT);
+        when(playerOne.play(inputReader)).thenReturn(TrustChoice.COOPERATE);
+        when(playerTwo.play(inputReader)).thenReturn(TrustChoice.CHEAT);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
-        evolutionOfTrust.start();
+        evolutionOfTrust.start(inputReader, inputReader);
         verify(consoleDisplay, times(NO_OF_ROUNDS + 1)).display(playerOne, playerTwo);
 
         evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, new ConsoleDisplay());
-        evolutionOfTrust.start();
+        evolutionOfTrust.start(inputReader, inputReader);
         verify(playerOne, times(NO_OF_ROUNDS + 1)).getScore();
         verify(playerTwo, times(NO_OF_ROUNDS + 1)).getScore();
     }
@@ -55,8 +56,8 @@ public class EvolutionOfTrustGameTest {
     @Test
     public void shouldUpdateScore() {
         InputReader inputReader = Mockito.mock(ConsoleInputReader.class);
-        Player playerOne = new Player(inputReader);
-        Player playerTwo = new Player(inputReader);
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
         when(inputReader.readTrustChoice())
                 .thenReturn(TrustChoice.CHEAT)
                 .thenReturn(TrustChoice.CHEAT)
@@ -70,7 +71,7 @@ public class EvolutionOfTrustGameTest {
                 .thenReturn(TrustChoice.CHEAT);
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
-        evolutionOfTrust.start();
+        evolutionOfTrust.start(inputReader, inputReader);
         Assert.assertEquals(-1, playerOne.getScore());
         Assert.assertEquals(3, playerTwo.getScore());
     }

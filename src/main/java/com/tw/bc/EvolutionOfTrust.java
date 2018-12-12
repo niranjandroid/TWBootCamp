@@ -13,12 +13,12 @@ public class EvolutionOfTrust {
         this.display = display;
     }
 
-    public void start() {
+    public void start(InputReader playerOneReader, InputReader playerTwoReader) {
         ScoreManager scoreManager = new ScoreManager();
         for(int i = 0; i < NO_OF_ROUNDS; i++) {
             display.display(playerOne, playerTwo);
-            TrustChoice playerOneChoice = playerOne.play();
-            TrustChoice playerTwoChoice = playerTwo.play();
+            TrustChoice playerOneChoice = playerOne.play(playerOneReader);
+            TrustChoice playerTwoChoice = playerTwo.play(playerTwoReader);
             scoreManager.updateScores(playerOne, playerOneChoice, playerTwo, playerTwoChoice);
         }
         display.display(playerOne, playerTwo);

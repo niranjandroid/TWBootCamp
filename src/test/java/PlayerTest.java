@@ -10,7 +10,7 @@ public class PlayerTest {
     @Test
     public void shouldAddScore() {
         InputReader inputReader = Mockito.mock(ConsoleInputReader.class);
-        Player player = new Player(inputReader);
+        Player player = new Player();
         Assert.assertEquals(0, player.getScore());
         player.addScore(Score.LOSER_SCORE);
         Assert.assertEquals(-1, player.getScore());
@@ -20,15 +20,6 @@ public class PlayerTest {
         Assert.assertEquals(4, player.getScore());
         player.addScore(Score.NEUTRAL_SCORE);
         Assert.assertEquals(4, player.getScore());
-    }
-
-    @Test
-    public void shouldPlay() {
-        InputReader inputReader = Mockito.mock(ConsoleInputReader.class);
-        Player player = new Player(inputReader);
-        when(inputReader.readTrustChoice())
-                .thenReturn(TrustChoice.COOPERATE);
-        Assert.assertEquals(TrustChoice.COOPERATE, player.play());
     }
 
 }
