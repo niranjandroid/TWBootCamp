@@ -6,7 +6,8 @@ public class ScoreManager {
                              Player playerTwo, TrustChoice playerTwoChoice) {
 
         State state = new State(playerOneChoice, playerTwoChoice);
-        IUpdateScore scoreUpdater = new RuleEngine().getScoreUpdater(state);
-        scoreUpdater.updateScores(playerOne, playerTwo);
+        Score[] scores = new RuleEngine().getScoreUpdater(state);
+        playerOne.addScore(scores[0]);
+        playerTwo.addScore(scores[1]);
     }
 }

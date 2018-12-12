@@ -24,6 +24,8 @@ public class EvolutionOfTrustGameTest {
         Player playerOne = Mockito.mock(Player.class);
         Player playerTwo = Mockito.mock(Player.class);
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
+        when(playerOne.play()).thenReturn(TrustChoice.COOPERATE);
+        when(playerTwo.play()).thenReturn(TrustChoice.CHEAT);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
         evolutionOfTrust.start();
         Assert.assertEquals(0, playerOne.getScore());
@@ -37,6 +39,9 @@ public class EvolutionOfTrustGameTest {
         Player playerOne = Mockito.mock(Player.class);
         Player playerTwo = Mockito.mock(Player.class);
         IDisplay consoleDisplay = Mockito.mock(ConsoleDisplay.class);
+
+        when(playerOne.play()).thenReturn(TrustChoice.COOPERATE);
+        when(playerTwo.play()).thenReturn(TrustChoice.CHEAT);
         EvolutionOfTrust evolutionOfTrust = new EvolutionOfTrust(playerOne, playerTwo, consoleDisplay);
         evolutionOfTrust.start();
         verify(consoleDisplay, times(NO_OF_ROUNDS + 1)).display(playerOne, playerTwo);
